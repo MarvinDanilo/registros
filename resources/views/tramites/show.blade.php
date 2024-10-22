@@ -1,115 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
- <meta charset="UTF-8">
- <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- {{-- Heredamos la estructura del archivo app.blade.php--}}
- @extends('layout.app')
- {{--Definimos el titulo--}}
- @section('title', 'Tramites')
-</head>
-<style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            padding: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        tr:hover {
-            background-color: #d1e7fd;
-        }
-    </style>
-<body>
-{{--Definimos el contenido--}}
+
+{{-- Heredamos la estructura del archivo app.blade.php --}}
+@extends('layouts.app')
+{{-- Definimos el título --}}
+@section('title', 'Listado de Trámites')
+
+{{-- Definimos el contenido --}}
 @section('content')
- <h1>Tramites</h1>
- <h5>Listado de tramites</h5>
- <hr>
- <center><h1>Trámites Registrados</h1></center>
-    <table>
-        <thead>
-            <tr>
-                <th>ID Trámite</th>
-                <th>ID Visitante</th>
-                <th>ID Visita</th>
-                <th>Descripción</th>
-                <th>Estado</th>
-                <th>Fecha de Inicio</th>
-                <th>Fecha Final</th>
-                <th>ID Usuario</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>T001</td>
-                <td>V001</td>
-                <td>VIS001</td>
-                <td>Solicitud de Información</td>
-                <td>Pendiente</td>
-                <td>2024-10-01</td>
-                <td>2024-10-10</td>
-                <td>U001</td>
-            </tr>
-            <tr>
-                <td>T002</td>
-                <td>V002</td>
-                <td>VIS002</td>
-                <td>Inscripción a Taller</td>
-                <td>Aprobado</td>
-                <td>2024-10-02</td>
-                <td>2024-10-15</td>
-                <td>U002</td>
-            </tr>
-            <tr>
-                <td>T003</td>
-                <td>V003</td>
-                <td>VIS003</td>
-                <td>Solicitud de Permiso</td>
-                <td>Rechazado</td>
-                <td>2024-10-03</td>
-                <td>2024-10-20</td>
-                <td>U003</td>
-            </tr>
-            <tr>
-                <td>T004</td>
-                <td>V004</td>
-                <td>VIS004</td>
-                <td>Consulta Médica</td>
-                <td>Pendiente</td>
-                <td>2024-10-04</td>
-                <td>2024-10-12</td>
-                <td>U004</td>
-            </tr>
-            <tr>
-                <td>T005</td>
-                <td>V005</td>
-                <td>VIS005</td>
-                <td>Revisión de Documentos</td>
-                <td>Aprobado</td>
-                <td>2024-10-05</td>
-                <td>2024-10-18</td>
-                <td>U005</td>
-            </tr>
-        </tbody>
-    </table>
- @endsection
-</body>
-</html>
+<h1>Trámites</h1>
+<h5>Listado de Trámites</h5>
+<hr>
+{{-- Botón para ir al formulario de agregar nuevo trámite --}}
+<a class="btn btn-danger btn-sm" href="/tramites/create">Agregar nuevo trámite</a>
+<table class="table table-hover table-bordered mt-2">
+    <thead>
+        <tr>
+            <th>Visitante</th>
+            <th>Descripción de la Visita</th>
+            <th>Usuario</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Final</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{-- Listado de trámites --}}
+        @foreach ($tramites as $item) 
+        <tr>
+            <td>{{ $item->visitante->nombre }}</td> {{-- Mostrar el nombre del visitante --}}
+            <td>{{ $item->visita->proposito }}</td> {{-- Mostrar el propósito de la visita --}}
+            <td>{{ $item->usuario->nombre }}</td> {{-- Mostrar el nombre del usuario --}}
+            <td>{{ $item->descripcion }}</td>
+            <td>{{ $item->estado }}</td>
+            <td>{{ $item->fecha_inicio }}</td>
+            <td>{{ $item->fecha_fin }}</td>
+            <td>
+                <a class="btn btn-success btn-sm" href="/tramites/edit/{{$item->codigo}}">Modificar</a>
+                <button class="btn btn-danger btn-sm" onclick="destroy(this)" url="/tramites/destroy/{{$item->codigo}}" token="{{ csrf_token() }}">Eliminar</button>
+            
+            
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+@endsection
+
+@section('scripts')
+{{-- SweetAlert --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- JS --}}
+<script src="{{ asset('js/visita.js') }}"></script>
+@endsection

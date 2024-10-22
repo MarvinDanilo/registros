@@ -10,19 +10,18 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('visitantes', function (Blueprint $table) {
-            $table->id('codigo');
-            $table->integer('id_visitante');
-            $table->string('nombre', 100);
-            $table->bigInteger('documento_id');
-            $table->string('telefono', 25);
-            $table->string('correo_electronico', 50);
-            $table->date('fecha_nacimiento', 50);
-            $table->date('fecha_registro', 50);
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('visitantes', function (Blueprint $table) {
+        $table->id('codigo'); // Este será el ID AUTO_INCREMENT
+        $table->string('nombre', 100);
+        $table->string('telefono', 25);
+        $table->string('correo_electronico', 50);
+        $table->date('fecha_nacimiento'); // Sin el segundo argumento
+        $table->date('fecha_registro'); // Sin el segundo argumento
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.

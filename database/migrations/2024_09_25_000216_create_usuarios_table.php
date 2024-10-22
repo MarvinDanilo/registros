@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->id('codigo');
-            $table->integer('id_usuario');
-            $table->string('contrasena', 100);
-            $table->string('rol', 100);
-            $table->date('fecha_registro', 50);
-            $table->timestamps();
+            $table->id('codigo'); // Campo ID principal de la tabla
+            $table->string('Nombre', 100); // Campo Nombre
+            $table->string('contrasena', 100); // Campo Contraseña (en minúsculas para evitar errores)
+            $table->string('rol', 100); // Campo Rol (en minúsculas)
+            $table->date('fecha_registro'); // Campo de fecha de registro
+            $table->timestamps(); // Campos created_at y updated_at
         });
     }
+
 
     /**
      * Reverse the migrations.

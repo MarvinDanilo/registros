@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
- <meta charset="UTF-8">
- <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
  {{-- Heredamos la estructura del archivo app.blade.php--}}
- @extends('layout.app')
+ @extends('layouts.app')
  {{--Definimos el titulo--}}
  @section('title', 'Informes')
 </head>
@@ -63,7 +58,7 @@
             background-color: #e9ecef;
         }
     </style>
-<body>
+
 {{--Definimos el contenido--}}
 @section('content')
  <h1>Crear</h1>
@@ -72,10 +67,7 @@
  <div class="container">
         <h1>Crear Informe</h1>
         <form action="#" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="ID_Informe">ID Informe</label>
-                <input type="text" id="ID_Informe" name="ID_Informe" required>
-            </div>
+           
             <div class="form-group">
                 <label for="Tipo_Informe">Tipo de Informe</label>
                 <input type="text" id="Tipo_Informe" name="Tipo_Informe" required>
@@ -92,5 +84,5 @@
         </form>
     </div>
  @endsection
-</body>
-</html>
+
+
